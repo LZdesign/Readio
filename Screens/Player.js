@@ -1,11 +1,27 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 
-export default function Player() {
+export default function Player({navigation, route}) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.container}>
         <Text>Player</Text>
+
+        <Button
+        title='Go to Library'
+        onPress={() => navigation.navigate('Library')}
+        />
       </View>
     );
   }
+
+  
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
+  

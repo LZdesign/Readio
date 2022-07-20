@@ -1,12 +1,16 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 
-
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
+      <View style={styles.container} >
+        <Text>This is your Library</Text>
+        
+        <Button
+        title='Go to Player'
+        onPress={() => navigation.navigate('Player')}
+        />
       </View>
     );
   }
