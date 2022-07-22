@@ -2,11 +2,33 @@ import * as React from 'react';
 import {Button, StyleSheet, Text, View, SafeAreaView, useWindowDimensions } from 'react-native';
 import {Reader, ReaderProvider, useReader} from 'epubjs-react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import { Audio } from 'expo-av';
 
 
 export default function Player({navigation}) {
     const {width, height} = useWindowDimensions();
     const { changeFontSize, goToLocation } = useReader();
+    const [sound, setSound] = React.useState();
+
+    async function playSound() {
+        console.log('Loading Sound');
+        const { sound } = await Audio.Sound.createAsync(
+           require('../assets/ThinkLikeAMonk.mp3')
+        );
+        setSound(sound);
+    
+        console.log('Playing Sound');
+        await sound.playAsync(); }
+
+        React.useEffect(() => {
+            return sound
+              ? () => {
+                  console.log('Unloading Sound');
+                  sound.unloadAsync(); }
+              : undefined;
+          }, [sound]);
+        
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -16,6 +38,7 @@ export default function Player({navigation}) {
                         () => navigation.navigate('Library')
                     }/>
 
+                <Button title="Play Sound" onPress={playSound} />
             </View>
 
             <SafeAreaView style={
